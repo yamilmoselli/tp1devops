@@ -1,27 +1,46 @@
 version: '3.8'
 
 services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
   api1:
     build: ./app
-    image: fastapi-replica:latest
+    image: fastapi-replica:1.0.0
     environment:
       - REPLICA_ID=1
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
     networks:
       - backend
 
   api2:
     build: ./app
-    image: fastapi-replica:latest
+    image: fastapi-replica:1.0.0
     environment:
       - REPLICA_ID=2
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
     networks:
       - backend
 
   api3:
     build: ./app
-    image: fastapi-replica:latest
+    image: fastapi-replica:1.0.0
     environment:
       - REPLICA_ID=3
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
     networks:
       - backend
 

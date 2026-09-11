@@ -15,8 +15,8 @@ Instrucciones
 1. Desde la raíz del proyecto ejecutar:
 
    (para linux): sudo service docker start
-   (solo la primera vez): docker-compose up --build -d
-   (2da vez en adelante): docker-compose up -d
+   (solo la primera vez): docker-compose up --build -d (otra opción: docker compose up --build -d)
+   (2da vez en adelante): docker-compose up -d (docker compose up -d)
 
 2. Verificar que los servicios estén arriba:
 
@@ -34,8 +34,9 @@ Instrucciones
    docker-compose logs -f nginx
 
 5. Parar y remover contenedores:
-
-   docker-compose down
+    
+    docker compose stop
+   docker-compose down (docker compose down)
 
 Notas y consejos
 ----------------
