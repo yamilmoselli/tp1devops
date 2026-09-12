@@ -47,3 +47,23 @@ Notas y consejos
 Contacto
 -------
 Para dudas, preguntar al autor del trabajo práctico.
+
+Tests
+-----
+Requisitos: Python 3.8+ y pip.
+
+Linux / macOS
+1. python -m venv .venv
+2. source .venv/bin/activate
+3. pip install -r app/requirements.txt
+4. pytest -q
+
+Windows (PowerShell)
+1. python -m venv .venv
+2. .\.venv\Scripts\Activate.ps1
+3. pip install -r app\requirements.txt
+4. pytest -q
+
+Notas
+- Para ejecutar solo los tests en la carpeta app: pytest app
+- Si no se quiere crear un virtualenv, instalar pytest globalmente: pip install pytest

@@ -1,0 +1,41 @@
+name: CI Pipeline - Tests & SAST
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  tests-and-sast:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
+          if [ -f app/requirements.txt ]; then python -m pip install -r app/requirements.txt; fi
+          python -m pip install pytest httpx bandit
+
+      - name: Run unit tests
+        run: python -m pytest app/ -W ignore::DeprecationWarning
+
+      - name: Run Bandit SAST
+        run: bandit -r app/ -ll
+
+      - name: Run Trivy config scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'config'
