@@ -1,6 +1,7 @@
 # TP1 DevOps
 
 ![CI Pipeline](https://github.com/yamilmoselli/tp1devops/actions/workflows/ci.yml/badge.svg)
+![SAST Security](https://img.shields.io/badge/SAST--Security-Passed-brightgreen?style=flat&logo=shield)
 
 ## Descripción
 Proyecto de arquitectura distribuida stateless con Nginx, réplicas de API en FastAPI y Redis.
