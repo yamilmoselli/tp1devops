@@ -1,5 +1,9 @@
-TP1 - API FastAPI con 3 réplicas y NGINX
+# TP1 DevOps
 
+![CI Pipeline](https://github.com/yamilmoselli/tp1devops/actions/workflows/ci.yml/badge.svg)
+
+## Descripción
+Proyecto de arquitectura distribuida stateless con Nginx, réplicas de API en FastAPI y Redis.
 Descripción
 -----------
 Proyecto de ejemplo: una API sencilla en Python (FastAPI) empaquetada en Docker y balanceada por NGINX. 
