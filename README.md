@@ -5,10 +5,10 @@
 
 ## Descripción
 Proyecto de arquitectura distribuida stateless con Nginx, réplicas de API en FastAPI y Redis.
-Descripción
------------
-Proyecto de ejemplo: una API sencilla en Python (FastAPI) empaquetada en Docker y balanceada por NGINX. 
-Cada réplica devuelve su identificador para verificar cuál respondió.
+
+Los badges de CI y SAST reflejan la calidad del proyecto mediante GitHub Actions, Python 3.11, 
+pytest para pruebas automatizadas, Bandit para análisis estático de seguridad y Trivy para escaneo 
+de configuración/Dockerfiles.
 
 Requisitos
 ---------
