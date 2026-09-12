@@ -22,7 +22,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install Bandit
         run: python -m pip install bandit
@@ -31,14 +31,14 @@ jobs:
         run: bandit -r app/ -ll
 
       - name: Escanear configuracion con Trivy
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.28.0
         with:
-          scan-type: 'config'
-          scan-ref: '.'
+          scan-type: "config"
+          scan-ref: "."
           format: sarif
           output: trivy-results.sarif
-          severity: 'HIGH,CRITICAL'
-          exit-code: '1'
+          severity: "HIGH,CRITICAL"
+          exit-code: "1"
 
       - name: Subir resultados a GitHub Code Scanning
         if: always()
