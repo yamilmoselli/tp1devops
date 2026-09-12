@@ -50,7 +50,7 @@ async def count_requests(request: Request, call_next):
     return await call_next(request)
 
 
-@app.get("/api/")
+@app.get("/api")
 async def root():
     identifier = REPLICA_ID or HOSTNAME
     return {"message": f"soy la replica {identifier}"}
@@ -61,7 +61,7 @@ async def visitas():
     return {"visitas": get_visits()}
 
 
-@app.get("/health")
+@app.get("/api/health")
 def health():
     return {"status": "ok"}
 
