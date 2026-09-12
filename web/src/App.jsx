@@ -15,11 +15,17 @@ export default function App() {
   return (
     <div className="app">
       <div className="card">
-        <h1>⚽ Fulbito5 — Armador de Equipos</h1>
+        <h1>Fulbito5</h1>
       </div>
       <NodeBanner />
-      <PlayerForm onPartidoGuardado={handlePartidoGuardado} partidoSeleccionado={ultimoPartido} />
-      <MatchExplorer refreshKey={refreshKey} onSeleccionarPartido={setUltimoPartido} />
+      <PlayerForm
+        onPartidoGuardado={handlePartidoGuardado}
+        partidoSeleccionado={ultimoPartido}
+      />
+      <MatchExplorer
+        refreshKey={refreshKey}
+        onSeleccionarPartido={setUltimoPartido}
+      />
     </div>
   );
 }
