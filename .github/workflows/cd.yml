@@ -38,6 +38,8 @@ jobs:
           context: ./web
           file: ./web/Dockerfile
           push: true
+          build-args: |
+            VITE_API_URL=https://fulbito5-api-latest.onrender.com
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/fulbito5-web:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/fulbito5-web:${{ github.sha }}
