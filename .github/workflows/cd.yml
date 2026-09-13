@@ -1,10 +1,9 @@
-name: CD Pipeline - Push Image to Docker Hub
+name: CD Pipeline - Push to Docker Hub
 
 on:
   push:
     branches:
       - main
-      - master
 
 jobs:
   build-and-push:
@@ -23,12 +22,22 @@ jobs:
       - name: Configurar Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Construir y publicar imagen Docker
-        uses: docker/build-push-action@v5
+      - name: Build y push de la imagen de la API
+        uses: docker/build-push-action@v6
         with:
           context: ./app
           file: ./app/Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/tp1-api:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/tp1-api:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/fulbito5-api:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/fulbito5-api:${{ github.sha }}
+
+      - name: Build y push de la imagen de la Web
+        uses: docker/build-push-action@v6
+        with:
+          context: ./web
+          file: ./web/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/fulbito5-web:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/fulbito5-web:${{ github.sha }}
