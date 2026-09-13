@@ -3,6 +3,11 @@ WORKDIR /app
 COPY package.json ./
 RUN npm install
 COPY . .
+
+# Recibir la variable de entorno para la compilación de Vite
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:1.27-alpine
