@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Avatar from "boring-avatars";
+import { apiUrl } from "../api.js";
 
 const NOMBRES_PRUEBA = [
   "Tobi",
@@ -66,7 +67,7 @@ export default function PlayerForm({ onPartidoGuardado, partidoSeleccionado }) {
     }
     setEnviando(true);
     try {
-      const res = await fetch("/api/partidos", {
+      const res = await fetch(apiUrl("/api/partidos"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
