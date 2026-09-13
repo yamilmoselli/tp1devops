@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { apiUrl } from "../api.js";
 
 export default function NodeBanner() {
   const [info, setInfo] = useState(null);
@@ -6,7 +7,7 @@ export default function NodeBanner() {
   const [pingueando, setPingueando] = useState(false);
 
   const fetchInfo = async () => {
-    const res = await fetch("/api/info");
+    const res = await fetch(apiUrl("/api/info"));
     const data = await res.json();
     setInfo(data);
     return data;

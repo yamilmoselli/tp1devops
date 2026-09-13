@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
+import { apiUrl } from "../api.js";
 
 export default function MatchExplorer({ refreshKey, onSeleccionarPartido }) {
   const [partidos, setPartidos] = useState([]);
   const [detalle, setDetalle] = useState(null);
 
   useEffect(() => {
-    fetch("/api/partidos")
+    fetch(apiUrl("/api/partidos"))
       .then((res) => res.json())
       .then(setPartidos)
       .catch(() => setPartidos([]));
   }, [refreshKey]);
 
   const verDetalle = async (id) => {
-    const res = await fetch(`/api/partidos/${id}`);
+    const res = await fetch(apiUrl(`/api/partidos/${id}`));
     const data = await res.json();
     setDetalle(data);
     onSeleccionarPartido?.(data);
