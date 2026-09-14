@@ -127,7 +127,7 @@ flowchart LR
     A1 --> R
     A2 --> R
     A3 --> R
-    U -.->|"TCP :6379 (expuesto igual, bypass de Nginx)"| R
+
 ```
 
 La arquitectura local está compuesta por seis contenedores:
