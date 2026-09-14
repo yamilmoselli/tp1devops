@@ -3,7 +3,6 @@ import { apiUrl } from "../api.js";
 
 export default function MatchExplorer({ refreshKey, onSeleccionarPartido }) {
   const [partidos, setPartidos] = useState([]);
-  const [detalle, setDetalle] = useState(null);
 
   useEffect(() => {
     fetch(apiUrl("/api/partidos"))
@@ -15,26 +14,29 @@ export default function MatchExplorer({ refreshKey, onSeleccionarPartido }) {
   const verDetalle = async (id) => {
     const res = await fetch(apiUrl(`/api/partidos/${id}`));
     const data = await res.json();
-    setDetalle(data);
     onSeleccionarPartido?.(data);
   };
 
   return (
     <div className="card">
-      <h2>Explorador de Redis</h2>
-      {partidos.length === 0 && <p>Todavía no hay partidos guardados.</p>}
-      <div className="partidos-lista">
+      <h2>Historial de equipos</h2>
+      {partidos.length === 0 && (
+        <p className="historial-vacio">Todavía no hay partidos guardados.</p>
+      )}
+      <div className="historial-lista">
         {partidos.map((p) => (
           <button
             key={p.id}
-            className="partido-chip secondary"
+            className="historial-item"
             onClick={() => verDetalle(p.id)}
           >
-            {new Date(p.fecha).toLocaleString()} · Δ{p.delta}
+            <span className="historial-fecha">
+              {new Date(p.fecha).toLocaleString()}
+            </span>
+            <span className="historial-delta">Δ{p.delta}</span>
           </button>
         ))}
       </div>
-      {detalle && <pre>{JSON.stringify(detalle, null, 2)}</pre>}
     </div>
   );
 }

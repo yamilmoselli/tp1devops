@@ -2,182 +2,606 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg: #050505;
+  --panel: #0a0a0a;
+  --border: #262626;
+  --border-soft: #1c1c1c;
+  --text: #f5f5f4;
+  --text-muted: #8a8a8a;
+  --text-dim: #565656;
+  --gold: #f0ca55;
+  --gold-soft: rgba(240, 202, 85, 0.12);
+  --danger: #f87171;
+}
+
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .app {
-  max-width: 960px;
+  max-width: 2000px;
   margin: 0 auto;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  padding: 2.5rem 1.5rem 4rem;
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1.3fr) minmax(
+      300px,
+      380px
+    );
+  grid-template-areas:
+    "title      armador balanceador"
+    "telem      armador balanceador"
+    "hist       armador balanceador";
+  gap: 1.75rem 2rem;
+  align-items: start;
+}
+
+.g-title {
+  grid-area: title;
+}
+.g-telem {
+  grid-area: telem;
+}
+.g-hist {
+  grid-area: hist;
+}
+.g-armador {
+  grid-area: armador;
+}
+.g-balanceador {
+  grid-area: balanceador;
 }
 
 .card {
-  background: #1e293b;
-  border-radius: 12px;
-  padding: 1.25rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 1.5rem;
+  min-width: 0;
 }
 
-h1 {
-  font-size: 1.5rem;
+.title-block h1 {
+  font-family: "Anton", "Inter", sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
   margin: 0;
 }
 
+.title-block .accent {
+  color: var(--gold);
+}
+
+.title-block p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 1rem 0 0 0;
+}
+
 h2 {
-  font-size: 1.1rem;
-  margin: 0 0 0.75rem 0;
-  color: #94a3b8;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-family: "Anton", "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  margin: 0;
+}
+
+h3 {
+  font-family: "Anton", "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  margin: 0 0 0.6rem 0;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 button {
   cursor: pointer;
   border: none;
   border-radius: 8px;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.1rem;
   font-weight: 600;
-  background: #2a9d8f;
-  color: white;
+  font-size: 0.85rem;
+  background: var(--gold);
+  color: #14110a;
 }
 
 button:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.08);
 }
 
-button.secondary {
-  background: #264653;
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
+
+button.ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+button.ghost:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+/* ---------- Telemetría de nodo ---------- */
 
 .banner {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .banner-stats {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 1.25rem;
 }
 
 .stat {
   display: flex;
   flex-direction: column;
+  gap: 0.2rem;
 }
 
 .stat span:first-child {
-  font-size: 0.75rem;
-  color: #94a3b8;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+
+.stat span:last-child {
+  font-weight: 600;
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+.banner button {
+  width: 100%;
 }
 
 .ping-history {
   display: flex;
   gap: 0.35rem;
   flex-wrap: wrap;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 .ping-chip {
-  background: #334155;
+  background: #151515;
+  border: 1px solid var(--border-soft);
   border-radius: 999px;
   padding: 0.15rem 0.6rem;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
 
-.jugador-row {
-  display: grid;
-  grid-template-columns: auto 1fr 1fr 1fr;
-  gap: 0.75rem;
+/* ---------- Historial de equipos ---------- */
+
+.historial-vacio {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.historial-lista {
+  display: flex;
+  flex-direction: column;
+}
+
+.historial-item {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-soft);
+  border-radius: 0;
+  display: flex;
   align-items: center;
-  padding: 0.4rem 0;
-  border-bottom: 1px solid #334155;
+  justify-content: space-between;
+  padding: 0.7rem 0;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-align: left;
 }
 
-.jugador-row img,
-.jugador-row svg,
-.jugador-chip img,
-.jugador-chip svg {
+.historial-item:last-child {
+  border-bottom: none;
+}
+
+.historial-item:hover {
+  color: var(--gold);
+  filter: none;
+}
+
+.historial-fecha {
+  color: inherit;
+}
+
+.historial-delta {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color: var(--gold);
+  font-size: 0.8rem;
+}
+
+/* ---------- Armador de equipos ---------- */
+
+.roster-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.roster-head span:first-child {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+
+.roster-head-hint {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+.roster {
+  display: flex;
+  flex-direction: column;
+}
+
+.roster-row {
+  display: grid;
+  grid-template-columns:
+    1.25rem 32px minmax(60px, 1fr) minmax(0, 1fr) minmax(0, 1fr)
+    2.5rem;
+  align-items: center;
+  column-gap: 0.75rem;
+  row-gap: 0.5rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border-soft);
+  min-width: 0;
+}
+
+.roster-row:last-child {
+  border-bottom: none;
+}
+
+.roster-row img,
+.roster-row svg {
   border-radius: 50%;
   flex-shrink: 0;
 }
 
-.jugador-row label {
+.roster-index {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color: var(--text-dim);
   font-size: 0.75rem;
-  color: #94a3b8;
-  display: block;
 }
 
-.jugador-row input[type="text"] {
-  background: #0f172a;
-  border: 1px solid #334155;
+.roster-name {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.2rem 0;
+  width: 100%;
+  min-width: 0;
+}
+
+.roster-name:focus {
+  outline: none;
+  border-bottom-color: var(--gold);
+}
+
+.roster-name::placeholder {
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+.roster-attr {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.roster-attr-label {
+  display: flex;
+  align-items: center;
+}
+
+.roster-attr-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.roster-attr-value.atq {
+  color: var(--text);
+}
+
+.roster-attr-value.def {
+  color: var(--gold);
+}
+
+.roster-total {
+  background: #14110a;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  color: inherit;
-  padding: 0.3rem 0.5rem;
+  text-align: center;
+  padding: 0.35rem 0;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-weight: 600;
+  font-size: 0.85rem;
+  justify-self: end;
   width: 100%;
 }
 
-.acciones {
+/* Range sliders */
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: var(--border);
+  border-radius: 999px;
+  margin: 0;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  background: var(--text);
+}
+
+.slider::-moz-range-thumb {
+  width: 10px;
+  height: 16px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  background: var(--text);
+}
+
+.slider-def::-webkit-slider-thumb {
+  background: var(--gold);
+}
+
+.slider-def::-moz-range-thumb {
+  background: var(--gold);
+}
+
+/* ---------- Balanceador ---------- */
+
+.balanceador {
   display: flex;
-  gap: 0.75rem;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.balancear-btn {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-family: "Anton", "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.sin-equipos {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+}
+
+.sin-equipos-title {
+  font-family: "Anton", "Inter", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--text-muted);
+  margin: 0 0 0.5rem 0;
+}
+
+.sin-equipos-text {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.resultado-card .ghost {
+  width: 100%;
   margin-top: 1rem;
 }
 
 .equipos {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-top: 1rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
-.equipo h3 {
-  margin: 0 0 0.5rem 0;
+.equipo + .equipo {
+  border-top: 1px solid var(--border-soft);
+  padding-top: 1.25rem;
 }
 
 .jugador-chip {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.4rem 0;
+  font-size: 0.88rem;
+}
+
+.jugador-chip-name {
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
-  padding: 0.25rem 0;
+  min-width: 0;
+}
+
+.jugador-chip-name span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jugador-chip-name img,
+.jugador-chip-name svg:not(.stat-chip svg) {
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.jugador-chip-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.stat-chip.atq {
+  background: rgba(245, 245, 244, 0.08);
+  color: var(--text);
+}
+
+.stat-chip.def {
+  background: var(--gold-soft);
+  color: var(--gold);
 }
 
 .delta {
   margin-top: 0.5rem;
-  color: #94a3b8;
-  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.82rem;
 }
 
-.partidos-lista {
+.team-totals {
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
 }
 
-.partido-chip {
-  background: #334155;
-  border-radius: 8px;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.8rem;
+.delta-main {
+  border-top: 1px solid var(--border-soft);
+  padding-top: 0.85rem;
+  color: var(--gold);
+  font-weight: 600;
 }
 
-.partido-chip:hover {
-  background: #475569;
+/* ---------- Responsive ---------- */
+
+@media (max-width: 980px) {
+  .app {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "telem"
+      "armador"
+      "balanceador"
+      "hist";
+    gap: 1.5rem;
+  }
+
+  .balanceador {
+    position: static;
+  }
 }
 
-pre {
-  background: #0f172a;
-  border-radius: 8px;
-  padding: 1rem;
-  overflow-x: auto;
-  font-size: 0.8rem;
+@media (max-width: 640px) {
+  .app {
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  .card {
+    padding: 1.15rem;
+  }
+
+  .card-header {
+    align-items: flex-start;
+  }
+
+  .card-header button {
+    width: 100%;
+  }
+
+  .roster-row {
+    grid-template-columns: 1.25rem auto 1fr auto;
+  }
+
+  .roster-attr {
+    grid-column: 1 / -1;
+  }
+
+  .roster-total {
+    justify-self: stretch;
+    width: 2.75rem;
+  }
+
+  .banner-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .title-block h1 {
+    font-size: 2.1rem;
+  }
+
+  .banner-stats {
+    grid-template-columns: 1fr;
+  }
 }
