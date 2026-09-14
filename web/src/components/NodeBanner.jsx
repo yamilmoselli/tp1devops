@@ -8,23 +8,29 @@ export default function NodeBanner() {
 
   const fetchInfo = async () => {
     const res = await fetch(apiUrl("/api/info"));
-    const data = await res.json();
-    setInfo(data);
-    return data;
+    return res.json();
   };
 
   useEffect(() => {
-    fetchInfo().catch(() => {});
+    fetchInfo().then(setInfo).catch(() => {});
   }, []);
 
   const pingCluster = async () => {
     setPingueando(true);
     setHistorial([]);
     try {
-      for (let i = 0; i < 8; i++) {
+      // 7, no 8: el contador de round-robin de nginx es acumulativo entre
+      // clicks. Con un tamaño de tanda multiplo de la cantidad de replicas
+      // vivas (8 lo es de 2 y de 3), la ultima posicion de cada tanda cae
+      // siempre en la misma replica y el Hostname de arriba queda "tildado"
+      // entre clicks. 7 no es multiplo de 2 ni de 3, asi que siempre rota.
+      let ultima = null;
+      for (let i = 0; i < 7; i++) {
         const data = await fetchInfo();
+        ultima = data;
         setHistorial((prev) => [...prev, data.hostname]);
       }
+      if (ultima) setInfo(ultima);
     } finally {
       setPingueando(false);
     }
@@ -57,7 +63,7 @@ export default function NodeBanner() {
           </div>
         </div>
         <button onClick={pingCluster} disabled={pingueando}>
-          {pingueando ? "Pingueando..." : "Ping al Clúster"}
+          {pingueando ? "Realizando ping" : "Ping al Clúster"}
         </button>
       </div>
       {historial.length > 0 && (

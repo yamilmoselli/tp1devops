@@ -1,0 +1,31 @@
+{
+  "hash": "1465d2cc",
+  "configHash": "0880bad9",
+  "lockfileHash": "7da3c31c",
+  "browserHash": "db81bfa4",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "1ed01119",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "867bb929",
+      "needsInterop": true
+    },
+    "boring-avatars": {
+      "src": "../../node_modules/boring-avatars/build/index.js",
+      "file": "boring-avatars.js",
+      "fileHash": "f33136cb",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-GFWMZNU4": {
+      "file": "chunk-GFWMZNU4.js"
+    }
+  }
+}
